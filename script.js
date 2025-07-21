@@ -147,26 +147,20 @@ function shareAsImage() {
     const dataUrl = canvas.toDataURL('image/png');
     document.getElementById('previewImage').src = dataUrl;
     document.getElementById('imagePreviewContainer').style.display = 'block';
-    const link = document.createElement('a');
-    link.download = 'classement-smarties.png';
-    link.href = dataUrl;
-    link.click();
+
+    // Copie l'image dans le presse-papiers
+    fetch(dataUrl)
+      .then(res => res.blob())
+      .then(blob => {
+        const item = new ClipboardItem({ 'image/png': blob });
+        navigator.clipboard.write([item]).then(() => {
+          alert('Image copiée dans le presse-papiers !');
+        });
+      });
+
     // Restaure la largeur du container
     container.style.width = '';
   });
-}
-
-
-function copyImageToClipboard() {
-  const img = document.getElementById('previewImage');
-  fetch(img.src)
-    .then(res => res.blob())
-    .then(blob => {
-      const item = new ClipboardItem({ 'image/png': blob });
-      navigator.clipboard.write([item]).then(() => {
-        alert('Image copiée dans le presse-papiers !');
-      });
-    });
 }
 
 function resetGame() {
