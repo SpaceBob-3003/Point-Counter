@@ -123,7 +123,7 @@ function checkForWinner() {
   }
 }
 
-function shareAsImage() {
+function copyImageToClipboard() {
   const container = document.getElementById('shareContainer');
   const finalRanking = document.getElementById('finalRanking');
   const width = finalRanking.dataset.maxTextWidth ? parseInt(finalRanking.dataset.maxTextWidth) : container.getBoundingClientRect().width;
@@ -144,22 +144,14 @@ function shareAsImage() {
     scrollX: -window.scrollX + rect.left,
     scrollY: -window.scrollY + rect.top
   }).then(canvas => {
-    const dataUrl = canvas.toDataURL('image/png');
-    document.getElementById('previewImage').src = dataUrl;
-    document.getElementById('imagePreviewContainer').style.display = 'block';
-
-    // Copie l'image dans le presse-papiers
-    fetch(dataUrl)
-      .then(res => res.blob())
-      .then(blob => {
-        const item = new ClipboardItem({ 'image/png': blob });
-        navigator.clipboard.write([item]).then(() => {
-          alert('Image copiée dans le presse-papiers !');
-        });
+    canvas.toBlob(blob => {
+      const item = new ClipboardItem({ 'image/png': blob });
+      navigator.clipboard.write([item]).then(() => {
+        alert('Image copiée dans le presse-papiers !');
+        // Restaure la largeur du container
+        container.style.width = '';
       });
-
-    // Restaure la largeur du container
-    container.style.width = '';
+    });
   });
 }
 
