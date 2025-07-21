@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- Icône et nom de la page -->
+<link rel="icon" href="if-advantage-calculator-1034351_88847.ico" type="image/x-icon">
+<meta name="Point-Counter" content="Compteur Smarties">
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Point-Counter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+  <div class="container">
+    <h1>Compteur de Points</h1>
+
+    <div>
+      <label>Points à atteindre : <input type="number" id="targetPoints" min="1" value="10"></label>
+      <label>Règle de victoire :
+        <select id="rule">
+          <option value="max">Le plus de points gagne</option>
+          <option value="min">Le moins de points gagne</option>
+        </select>
+      </label>
+    </div>
+
+    <div>
+      <label>Ajouter un joueur :
+        <input type="text" id="newPlayerName" placeholder="Nom du joueur">
+        <button onclick="addPlayer()">Ajouter</button>
+      </label>
+    </div>
+
+    <div>
+      <label>Joueurs prédéfinis :</label>
+      <select id="predefinedPlayers">
+        <option value="">-- Choisir un joueur --</option>
+        <option value="Alann">Alann</option>
+        <option value="Baptiste">Baptiste</option>
+        <option value="Carine">Carine</option>
+        <option value="Claude">Claude</option>
+        <option value="Denise">Denise</option>
+        <option value="Jérémie">Jérémie</option>
+        <option value="Jonathan">Jonathan</option>
+        <option value="Karin">Karin</option>
+        <option value="Ludovic">Ludovic</option>
+      </select>
+      <button onclick="addPredefinedPlayer()">Ajouter</button>
+    </div>
+
+    <div class="scoreboard" id="scoreboard"></div>
+
+    <div id="roundControls" style="display: none;">
+      <h2>Ajouter des points - Manche <span id="roundNumber">1</span></h2>
+      <div id="pointsInputs"></div>
+      <button onclick="submitRound()">Valider la manche</button>
+    </div>
+
+    <div id="result" style="display: none;">
+      <div id="shareContainer">
+        <div id="finalRanking"></div>
+      </div>
+      <button onclick="shareAsImage()">Partager le classement (PNG)</button>
+      <button onclick="resetGame()">Nouvelle partie</button>
+      <div id="imagePreviewContainer" style="margin-top: 20px; display: none;">
+        <h3>Aperçu de l'image :</h3>
+        <img id="previewImage" src="" alt="Aperçu du classement" style="max-width: 100%; border: 1px solid #ccc; border-radius: 8px;">
+        <br>
+        <button onclick="copyImageToClipboard()">Copier l'image</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
